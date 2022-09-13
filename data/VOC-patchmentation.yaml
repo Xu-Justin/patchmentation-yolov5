@@ -12,7 +12,7 @@ path: ../datasets/VOC
 train: # train images (relative to 'path')
   - images/train2012
   - images/train2007
-val: # val images (relative to 'path')=
+val: # val images (relative to 'path')
   - images/val2012
   - images/val2007
 test: # test images (optional)
