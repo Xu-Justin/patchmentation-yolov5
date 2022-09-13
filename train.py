@@ -479,7 +479,6 @@ def main(opt, callbacks=Callbacks()):
     # Checks
     if RANK in {-1, 0}:
         print_args(vars(opt))
-        check_git_status()
         check_requirements()
 
     # Resume (from specified or most recent last.pt)
