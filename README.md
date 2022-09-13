@@ -12,12 +12,10 @@ TBA
 
 ```
 python3 train.py \
-    --data data/VOC-patchmentation.yaml --hyp data/hyps/hyp.VOC-patchmentation.yaml \
-    --weights yolov5s.pt --epochs 300 --batch-size 16 \
+    --data data/VOC-patchmentation.yaml --hyp data/hyps/hyp.patchmentation.yaml \
+    --weights yolov5s.pt --epochs 300 --batch-size 32 \
     --project runs/patchmentation --name exp
 ```
-
-Issue: current experiment show that hyp.VOC-patchmentation.yaml have a very low performance. Alternative: hyp.scratch-low.yaml
 
 ## Testing
 
