@@ -10,7 +10,7 @@ TBA
 
 ## Training
 
-```
+```bash
 python3 train.py \
     --data data/VOC-patchmentation.yaml --hyp data/hyps/hyp.patchmentation.yaml \
     --weights yolov5s.pt --epochs 300 --batch-size 32 \
@@ -19,7 +19,12 @@ python3 train.py \
 
 ## Testing
 
-TBA
+```bash
+python3 detect.py \
+    --source ../datasets/VOC/images/test2007/ --img-size 640 \
+    --conf-thres 0.25 --iou-thres 0.45 --save-txt --save-conf --line-thickness 1 \
+    --weights runs/patchmentation/exp/weights/best.pt --project runs/patchmentation-test --name exp
+```
 
 ---
 
