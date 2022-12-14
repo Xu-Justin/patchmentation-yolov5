@@ -1,29 +1,31 @@
-# patchmentation-yolov5
+# Patchmentation YOLOv5
 
-**DISCLAIMER: This repository is forked from [ultralytics/yolov5](https://github.com/ultralytics/yolov5/). Please refer to the original repository for more detail explanations and questions about the models or implementations.**
+**This repository is forked from [ultralytics/yolov5](https://github.com/ultralytics/yolov5/) and modified. Please refer to the original repository for more informations about the models.**
 
-***THIS REPOSITORY IS UNDER DEVELOPMENT***
-
-## Docker
-
-TBA
+This model YOLOv5 is used to benchmark patch augmentation performance of [patchmentation](https://github.com/Xu-Justin/patchmentation).
 
 ## Training
 
+Run the following commands to start training.
+
 ```bash
-python3 train.py \
-    --data data/VOC-patchmentation.yaml --hyp data/hyps/hyp.patchmentation.yaml \
-    --weights yolov5s.pt --epochs 300 --batch-size 32 \
-    --project runs/patchmentation --name exp
+./train.sh version=[version]
 ```
 
-## Testing
+## Validation
+
+Run the following commands to start validating.
 
 ```bash
-python3 detect.py \
-    --source ../datasets/VOC/images/test2007/ --img-size 640 \
-    --conf-thres 0.25 --iou-thres 0.45 --save-txt --save-conf --line-thickness 1 \
-    --weights runs/patchmentation/exp/weights/best.pt --project runs/patchmentation-test --name exp
+./val.sh version=[version] task=test
+```
+
+## Docker
+
+Run the following commands to get into docker container env.
+
+```bash
+docker run -it --rm --gpus all jstnxu/patchmentation:yolov5 /bin/bash
 ```
 
 ---
