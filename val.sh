@@ -45,7 +45,7 @@ if [ -z ${task+x} ]; then
 fi
 
 data_yaml=data/"${version/train/"patchmentation"}".yaml
-runs_project=runs/train/"${version/valid/"patchmentation"}"
+runs_project=runs/valid/"${version/train/"patchmentation"}"
 
 echo ============================================================
 echo version: $version
