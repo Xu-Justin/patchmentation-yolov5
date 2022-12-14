@@ -1,0 +1,33 @@
+# YOLOv5 🚀 by Ultralytics, GPL-3.0 license
+
+# Train/val/test sets as 1) dir: path/to/imgs, 2) file: path/to/imgs.txt, or 3) list: [path/to/imgs1, path/to/imgs2, ..]
+path: ../patchmentation-dataset/data
+train: # train images (relative to 'path')
+  - train-pascal-voc-2007-v2/images
+val: # val images (relative to 'path')
+  - valid-pascal-voc-2007/images
+test:
+  - test-pascal-voc-2007/images
+
+# Classes
+names:
+  0: aeroplane
+  1: bicycle
+  2: bird
+  3: boat
+  4: bottle
+  5: bus
+  6: car
+  7: cat
+  8: chair
+  9: cow
+  10: diningtable
+  11: dog
+  12: horse
+  13: motorbike
+  14: person
+  15: pottedplant
+  16: sheep
+  17: sofa
+  18: train
+  19: tvmonitor
