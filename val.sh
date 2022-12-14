@@ -58,7 +58,7 @@ echo batch_size: $batch_size
 echo task: $task
 echo ============================================================
 
-echo val.py \
+python3 val.py \
     --data $data_yaml \
     --weights $weights --batch-size $batch_size --verbose --task $task \
     --project $runs_project --name $runs_name
