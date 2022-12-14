@@ -1,8 +1,8 @@
-# Patchmentation YOLOv5
+# Patchmentation YOLOv5 🚀
 
 **This repository is forked from [ultralytics/yolov5](https://github.com/ultralytics/yolov5/) and modified. Please refer to the original repository for more informations about the models.**
 
-This model YOLOv5 is used to benchmark patch augmentation performance of [patchmentation](https://github.com/Xu-Justin/patchmentation).
+This model YOLOv5 🚀 is used to benchmark patch augmentation performance of [patchmentation](https://github.com/Xu-Justin/patchmentation).
 
 ## Training
 
