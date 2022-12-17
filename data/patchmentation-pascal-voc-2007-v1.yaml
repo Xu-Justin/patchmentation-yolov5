@@ -31,3 +31,7 @@ names:
   17: sofa
   18: train
   19: tvmonitor
+
+train-format: multi-batch
+val-format: single-batch
+test-format: single-batch

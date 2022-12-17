@@ -398,6 +398,12 @@ def train(hyp, opt, device, callbacks):  # hyp is path/to/hyp.yaml or hyp dictio
             break  # must break all DDP ranks
 
         # end epoch ----------------------------------------------------------------------------------------------------
+
+        if epoch + 1 == epochs:
+            break
+        else:
+            exit(0)
+
     # end training -----------------------------------------------------------------------------------------------------
     if RANK in {-1, 0}:
         LOGGER.info(f'\n{epoch - start_epoch + 1} epochs completed in {(time.time() - t0) / 3600:.3f} hours.')
