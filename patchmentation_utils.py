@@ -165,7 +165,7 @@ def train(data: str, hyp: str, weights: str, epochs: int, batch_size: int, proje
         unlink_dataset(yaml_dict['path'], yaml_dict['test'])
         link_dataset(yaml_dict['path'], yaml_dict['test'], 0)
 
-    command_initial = f'python3 train.py --data {data} --hyp {hyp} --weights {weights} --epochs {epochs} --batch-size {batch_size} --project {project} --name {name} --save-period 1'
+    command_initial = f'python3 train.py --data {data} --hyp {hyp} --weights {weights} --epochs {epochs} --batch-size {batch_size} --project {project} --name {name}'
     os.system(command_initial)
 
     resume_weight = os.path.join(project, name, 'weights', 'last.pt')
