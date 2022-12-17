@@ -9,7 +9,8 @@ This model YOLOv5 🚀 is used to benchmark patch augmentation performance of [p
 Run the following commands to start training.
 
 ```bash
-./train.sh version=[version]
+--python3 patchmentation_yolov5.py --version [version] \
+    --train --batch-size [batch_size] --epochs [epochs]
 ```
 
 ## Validation
