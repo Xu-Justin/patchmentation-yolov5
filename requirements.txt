@@ -42,4 +42,4 @@ thop>=0.1.1  # FLOPs computation
 # pycocotools>=2.0  # COCO mAP
 # roboflow
 
-patchmentation>=0.1.6
+patchmentation>=0.1.7
