@@ -18,6 +18,7 @@ def get_args_parser():
     parser.add_argument('--remove-zip', action='store_true', help='remove zip output')
     parser.add_argument('--upload', action='store_true', help='upload output zip')
     parser.add_argument('--download', type=str, default=[], nargs='+', help='download output zip')
+    parser.add_argument('--plot', action='store_true', help='extra output plots')
     parser.add_argument('--overwrite', action='store_true', help='overwrite existing output / zip')
     args = parser.parse_args()
     return args
@@ -60,6 +61,9 @@ def main(args):
             if args.overwrite:
                 utils.remove_folder_output(args.project, version)
             utils.unzip(args.project, version)
+
+        if args.plot:
+            utils.plot(args.project, version)
 
         if args.remove:
             utils.remove(args.project, version)

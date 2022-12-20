@@ -1,5 +1,8 @@
 import yaml
 import os, shutil
+import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
 from typing import List
 
 def _remove_ext(file: str):
@@ -71,6 +74,51 @@ def upload(project: str, name: str):
 def download(project: str, name: str, url: str):
     file_zip = get_file_zip(project, name)
     _bash_download(url, file_zip)
+
+def plot(project: str, name: str):
+    plot_results_mix(project, name)
+
+def plot_results_mix(project: str, name: str):
+    csv_results = pd.read_csv(get_file_csv_results(project, name))
+    plot_mix_train_val(csv_results, get_file_plot_results_mix(project, name))
+
+def plot_mix_train_val_ax(ax, data_train, data_val, title: str = None):
+    index_train = np.arange(len(data_train))
+    index_val = np.arange(len(data_val))
+    ax.set_title(title)
+    ax.plot(index_train, data_train, color='green', label='train')
+    ax.plot(index_val, data_val, color='red', label='val')
+    ax.legend()
+    ax.grid()
+
+def get_csv_results_index(csv_results, index: str):
+    for key in csv_results.keys():
+        if key.strip() == index:
+            return key
+    raise Exception(index)
+    
+def plot_mix_train_val(csv_results, path: str):
+    fig, axs = plt.subplots(1, 3, figsize=(30, 6), dpi=150)
+    
+    train_box_loss = csv_results[get_csv_results_index(csv_results, 'train/box_loss')]
+    val_box_loss = csv_results[get_csv_results_index(csv_results, 'val/box_loss')]
+    plot_mix_train_val_ax(axs[0], train_box_loss, val_box_loss, 'box_loss')
+    
+    train_obj_loss = csv_results[get_csv_results_index(csv_results, 'train/obj_loss')]
+    val_obj_loss = csv_results[get_csv_results_index(csv_results, 'val/obj_loss')]
+    plot_mix_train_val_ax(axs[1], train_obj_loss, val_obj_loss, 'obj_loss')
+    
+    train_cls_loss = csv_results[get_csv_results_index(csv_results, 'train/cls_loss')]
+    val_cls_loss = csv_results[get_csv_results_index(csv_results, 'val/cls_loss')]
+    plot_mix_train_val_ax(axs[2], train_cls_loss, val_cls_loss, 'cls_loss')
+    
+    plt.savefig(path)
+
+def get_file_csv_results(project: str, name: str):
+    return os.path.join(project, name, 'results.csv')
+
+def get_file_plot_results_mix(project: str, name: str):
+    return os.path.join(project, name, 'results-mix.png')
 
 def get_file_yaml(name: str) -> str:
     return os.path.join('data', f'patchmentation-{name}.yaml')
