@@ -40,6 +40,7 @@ def main(args):
             assert args.batch_size is not None
             assert args.epochs is not None
             utils.train(data, args.hyp, args.weights, args.epochs, args.batch_size, args.project, version)
+            utils.plot(args.project, version)
 
         if args.zip:
             if args.overwrite:
