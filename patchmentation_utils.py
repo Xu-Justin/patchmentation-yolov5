@@ -31,7 +31,9 @@ def _bash_download(url: str, file: str):
     print(f'bash download {url} to {file}')
     os.system(f'wget -c {url} -O {file}')
     
-def _rm(path: str):
+def _rm(path: str, check: bool = False):
+    if check and not os.path.exists(path):
+        return
     print(f'remove {path}')
     os.system(f'rm -rf {path}')
 
@@ -39,23 +41,35 @@ def _link(source: str, target: str):
     print(f'link {source} to {target}')
     os.system(f'ln -s {os.path.abspath(source)} {os.path.abspath(target)}')
 
-def _unlink(path: str):
+def _unlink(path: str, check: bool = False):
+    if check and not os.path.exists(path):
+        return
     print(f'unlink {path}')
     os.system(f'rm {path}')
 
 def get_folder_output(project: str, name: str):
     return os.path.join(project, name)
 
+def get_folder_output_test(project: str, name: str):
+    return os.path.join(get_folder_output(project, name), 'test')
+
+def get_weights(project: str, name: str):
+    return os.path.join(get_folder_output(project, name), 'weights', 'best.pt')
+
 def get_file_zip(project: str, name: str):
     return os.path.join(project, f'{name}.zip')
 
-def remove(project: str, name: str):
+def remove(project: str, name: str, check: bool = False):
     folder_output = get_folder_output(project, name)
-    _rm(folder_output)
+    _rm(folder_output, check)
 
-def remove_zip(project: str, name: str):
+def remove_test(project: str, name: str, check: bool = False):
+    folder_output_test = get_folder_output_test(project, name)
+    _rm(folder_output_test, check)
+
+def remove_zip(project: str, name: str, check: bool = False):
     file_zip = get_file_zip(project, name)
-    _rm(file_zip)
+    _rm(file_zip, check)
 
 def zip(project: str, name: str):
     folder_output = get_folder_output(project, name)
@@ -146,34 +160,34 @@ def create_folder_link(folder: str, batch: int):
     _link(folder_batch_images, folder_link_images)
     _link(folder_batch_annotations, folder_link_annotations)
 
-def remove_folder_link(folder: str):
+def remove_folder_link(folder: str, check: bool = False):
     folder_link_images = get_folder_images(folder)
     folder_link_annotations = get_folder_annotations(folder)
-    _unlink(folder_link_images)
-    _unlink(folder_link_annotations)
+    _unlink(folder_link_images, check)
+    _unlink(folder_link_annotations, check)
 
 def link_dataset(path: str, folders: List[str], batch: int):
     for folder in folders:
         folder_images = os.path.join(path, folder)
         create_folder_link(os.path.dirname(folder_images), batch)
 
-def unlink_dataset(path: str, folders: List[str]):
+def unlink_dataset(path: str, folders: List[str], check: bool = False):
     for folder in folders:
         folder_images = os.path.join(path, folder)
-        remove_folder_link(os.path.dirname(folder_images))
+        remove_folder_link(os.path.dirname(folder_images), check)
 
-def remove_cache(path: str, folders: List[str]):
+def remove_cache(path: str, folders: List[str], check: bool = False):
     for folder in folders:
         folder_images = os.path.join(path, folder)
         file_cache = get_file_cache(os.path.dirname(folder_images))
-        _rm(file_cache)
+        _rm(file_cache, check)
 
 SINGLE_BATCH = 'single-batch'
 MULTI_BATCH = 'multi-batch'
 
 def train(data: str, hyp: str, weights: str, epochs: int, batch_size: int, project: str, name: str):
     
-    print(f'=================== TRAIN ======================')
+    print(f'=================== TRAIN =====================')
 
     print(f'data: {data}')
     print(f'hyp: {hyp}')
@@ -201,16 +215,16 @@ def train(data: str, hyp: str, weights: str, epochs: int, batch_size: int, proje
     
 
     if train_format is not None and train_format in (SINGLE_BATCH, MULTI_BATCH):
-        remove_cache(yaml_dict['path'], yaml_dict['train'])
-        unlink_dataset(yaml_dict['path'], yaml_dict['train'])
+        remove_cache(yaml_dict['path'], yaml_dict['train'], check=True)
+        unlink_dataset(yaml_dict['path'], yaml_dict['train'], check=True)
         link_dataset(yaml_dict['path'], yaml_dict['train'], 0)
     if val_format is not None and val_format in (SINGLE_BATCH, MULTI_BATCH):
-        remove_cache(yaml_dict['path'], yaml_dict['val'])
-        unlink_dataset(yaml_dict['path'], yaml_dict['val'])
+        remove_cache(yaml_dict['path'], yaml_dict['val'], check=True)
+        unlink_dataset(yaml_dict['path'], yaml_dict['val'], check=True)
         link_dataset(yaml_dict['path'], yaml_dict['val'], 0)
     if test_format is not None and test_format in (SINGLE_BATCH, MULTI_BATCH):
-        remove_cache(yaml_dict['path'], yaml_dict['test'])
-        unlink_dataset(yaml_dict['path'], yaml_dict['test'])
+        remove_cache(yaml_dict['path'], yaml_dict['test'], check=True)
+        unlink_dataset(yaml_dict['path'], yaml_dict['test'], check=True)
         link_dataset(yaml_dict['path'], yaml_dict['test'], 0)
 
     command_initial = f'python3 train.py --data {data} --hyp {hyp} --weights {weights} --epochs {epochs} --batch-size {batch_size} --project {project} --name {name}'
@@ -236,6 +250,50 @@ def train(data: str, hyp: str, weights: str, epochs: int, batch_size: int, proje
     if train_format is not None and train_format in (SINGLE_BATCH, MULTI_BATCH):
         remove_cache(yaml_dict['path'], yaml_dict['train'])
         unlink_dataset(yaml_dict['path'], yaml_dict['train'])
+    if val_format is not None and val_format in (SINGLE_BATCH, MULTI_BATCH):
+        remove_cache(yaml_dict['path'], yaml_dict['val'])
+        unlink_dataset(yaml_dict['path'], yaml_dict['val'])
+    if test_format is not None and test_format in (SINGLE_BATCH, MULTI_BATCH):
+        remove_cache(yaml_dict['path'], yaml_dict['test'])
+        unlink_dataset(yaml_dict['path'], yaml_dict['test'])
+
+def test(data: str, weights:str, batch_size: int, project: str, name: str):
+
+    print(f'=================== TEST ======================')
+
+    print(f'data: {data}')
+    print(f'weights: {weights}')
+    print(f'batch_size: {batch_size}')
+    print(f'project: {project}')
+    print(f'name: {name}')
+    print(f'===============================================')
+
+    if os.path.exists(get_folder_output_test(project, name)):
+        raise FileExistsError(get_folder_output_test(project, name))
+    
+    with open(data, 'r') as f:
+        yaml_dict = yaml.safe_load(f)
+
+    val_format = yaml_dict.get('val-format', None)
+    test_format = yaml_dict.get('test-format', None)
+
+    print(f'val_format: {val_format}')
+    print(f'test_format: {test_format}')
+    print(f'===============================================')
+    
+
+    if val_format is not None and val_format in (SINGLE_BATCH, MULTI_BATCH):
+        remove_cache(yaml_dict['path'], yaml_dict['val'], check=True)
+        unlink_dataset(yaml_dict['path'], yaml_dict['val'], check=True)
+        link_dataset(yaml_dict['path'], yaml_dict['val'], 0)
+    if test_format is not None and test_format in (SINGLE_BATCH, MULTI_BATCH):
+        remove_cache(yaml_dict['path'], yaml_dict['test'], check=True)
+        unlink_dataset(yaml_dict['path'], yaml_dict['test'], check=True)
+        link_dataset(yaml_dict['path'], yaml_dict['test'], 0)
+
+    command = f'python3 val.py --data {data} --weights {weights} --batch-size {batch_size} --verbose --task test --project {project} --name {name + "/test"}'
+    os.system(command)
+
     if val_format is not None and val_format in (SINGLE_BATCH, MULTI_BATCH):
         remove_cache(yaml_dict['path'], yaml_dict['val'])
         unlink_dataset(yaml_dict['path'], yaml_dict['val'])
