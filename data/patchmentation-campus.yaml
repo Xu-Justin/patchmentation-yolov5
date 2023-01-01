@@ -1,0 +1,18 @@
+# YOLOv5 🚀 by Ultralytics, GPL-3.0 license
+
+# Train/val/test sets as 1) dir: path/to/imgs, 2) file: path/to/imgs.txt, or 3) list: [path/to/imgs1, path/to/imgs2, ..]
+path: ../patchmentation-dataset/data
+train: # train images (relative to 'path')
+  - train-campus/images
+val: # val images (relative to 'path')
+  - valid-campus/images
+test:
+  - test-campus/images
+
+# Classes
+names:
+  0: person
+
+train-format: multi-batch
+val-format: single-batch
+test-format: single-batch
