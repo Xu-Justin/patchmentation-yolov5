@@ -6,6 +6,8 @@ train: # train images (relative to 'path')
   - train-penn-fudan-ped-person/images
 val: # val images (relative to 'path')
   - valid-penn-fudan-ped-person/images
+test:
+  - test-campus/images
 
 # Classes
 names:
@@ -13,3 +15,4 @@ names:
 
 train-format: single-batch
 val-format: single-batch
+test-format: single-batch
