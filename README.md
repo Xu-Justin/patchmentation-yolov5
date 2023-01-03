@@ -6,9 +6,12 @@ This model YOLOv5 🚀 is used to benchmark patch augmentation performance of [p
 
 ## Experiment Results and Comparison
 
-<p align="center">
-  <img src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQcnbc-UQGxqD8ThT-00ZZxtqeVm5c2QuJ_MAsY5syU0CLhMfLW8bvsi7IWO2YlhfiaQeiOBTcoPVyS/pubchart?oid=613608528&format=image" />
-</p>
+<table>
+  <tr>
+    <td><img src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQcnbc-UQGxqD8ThT-00ZZxtqeVm5c2QuJ_MAsY5syU0CLhMfLW8bvsi7IWO2YlhfiaQeiOBTcoPVyS/pubchart?oid=2035120567&format=image"></td>
+    <td><img src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQcnbc-UQGxqD8ThT-00ZZxtqeVm5c2QuJ_MAsY5syU0CLhMfLW8bvsi7IWO2YlhfiaQeiOBTcoPVyS/pubchart?oid=613608528&format=image"></td>
+  </tr>
+</table>
 
 | Experiment | Dataset                                                                                      | Weights |     P     |     R     |   mAP@.5  | mAP@.5:.95 |
 |:----------:|----------------------------------------------------------------------------------------------|:-------:|:---------:|:---------:|:---------:|:----------:|
