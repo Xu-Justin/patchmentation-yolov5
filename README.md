@@ -4,6 +4,27 @@
 
 This model YOLOv5 🚀 is used to benchmark patch augmentation performance of [patchmentation](https://github.com/Xu-Justin/patchmentation).
 
+## Experiment Results and Comparison
+
+| Experiment | Dataset                                                                                      | Weights |     P     |     R     |   mAP@.5  | mAP@.5:.95 |
+|:----------:|----------------------------------------------------------------------------------------------|:-------:|:---------:|:---------:|:---------:|:----------:|
+|   S-base   | Pascal VOC 2007                                                                              | yolov5s |   0.685   |   0.558   |   0.586   |    0.327   |
+|     S1     | Pascal VOC 2007<br><sup>with patch augmentation</sup>                                        | yolov5s |   0.715   |   0.621   | **0.671** |  **0.405** |
+|     S2     | Pascal VOC 2007<br><sup>with patch augmentation and soft-edge</sup>                          | yolov5s |   0.717   | **0.624** |    0.67   |    0.403   |
+|     S3     | Pascal VOC 2007<br><sup>with patch augmentation and negative-patch</sup>                     | yolov5s |   0.726   |   0.607   |   0.665   |    0.393   |
+|     S4     | Pascal VOC 2007<br><sup>with patch augmentation, soft-edge, and negative-patch</sup>         | yolov5s | **0.732** |   0.608   |   0.669   |    0.396   |
+|            |                                                                                              |         |           |           |           |            |
+|   X-base   | Pascal VOC 2007                                                                              | yolov5x |    0.81   |   0.688   |   0.745   |    0.516   |
+|     X1     | Pascal VOC 2007<br><sup>with patch augmentation</sup>                                        | yolov5x |   0.817   | **0.719** | **0.776** |  **0.556** |
+|     X2     | Pascal VOC 2007<br><sup>with patch augmentation and soft-edge</sup>                          | yolov5x |   0.804   |   0.704   |   0.772   |    0.544   |
+|     X3     | Pascal VOC 2007<br><sup>with patch augmentation and negative-patch</sup>                     | yolov5x |   0.796   |   0.718   | **0.776** |    0.549   |
+|     X4     | Pascal VOC 2007<br><sup>with patch augmentation, soft-edge, and negative-patch</sup>         | yolov5x | **0.818** |   0.704   |   0.767   |    0.543   |
+|            |                                                                                              |         |           |           |           |            |
+|   PS-base  | Penn-Fudan-Ped                                                                               | yolov5s |   0.358   |   0.234   |   0.288   |    0.099   |
+|     PS1    | Single image from Campus - Garden1<br><sup>with patch augmentation from Penn-Fudan-Ped</sup> | yolov5s | **0.907** | **0.746** | **0.817** |  **0.401** |
+|   PX-base  | Penn-Fudan-Ped                                                                               | yolov5x |   0.566   |   0.315   |   0.393   |    0.145   |
+|     PX1    | Single image from Campus - Garden1<br><sup>with patch augmentation from Penn-Fudan-Ped</sup> | yolov5x |  **0.9**  |  **0.79** | **0.838** |  **0.431** |
+
 ## Dependency
 
 * Using PIP
