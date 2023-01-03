@@ -6,6 +6,10 @@ This model YOLOv5 🚀 is used to benchmark patch augmentation performance of [p
 
 ## Experiment Results and Comparison
 
+<p align="center">
+  <img src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQcnbc-UQGxqD8ThT-00ZZxtqeVm5c2QuJ_MAsY5syU0CLhMfLW8bvsi7IWO2YlhfiaQeiOBTcoPVyS/pubchart?oid=613608528&format=image" />
+</p>
+
 | Experiment | Dataset                                                                                      | Weights |     P     |     R     |   mAP@.5  | mAP@.5:.95 |
 |:----------:|----------------------------------------------------------------------------------------------|:-------:|:---------:|:---------:|:---------:|:----------:|
 |   S-base   | Pascal VOC 2007                                                                              | yolov5s |   0.685   |   0.558   |   0.586   |    0.327   |
