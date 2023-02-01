@@ -56,6 +56,7 @@ This model YOLOv5 🚀 is used to benchmark patch augmentation performance of [p
 |     -     | `--batch-size` |       `int`       | Number of batch size. Required if `train` is true or `test` is true.                                           |
 |     -     |   `--epochs`   |       `int`       | Number of epoch. Required if `train` is true.                                                                  |
 |     -     |    `--data`    | one or more `str` | Dataset yaml configurations. If not given, will use predefined yaml in accordance with the `version`.          |
+|     -     |   `--weights`  |       `str`       | Model weight. Default `yolov5s.pt`.                                                                            |
 |     1     |    `--train`   |    `store_true`   | Train the model. If `overwrite` is true, it will remove the output (if exists) before training.                |
 |     2     |    `--test`    |    `store_true`   | Test the model. If `overwrite` is true, it will remove the test output (if exists) before testing.             |
 |     3     |     `--zip`    |    `store_true`   | Zip the output. If `overwrite` is true, it will remove the output zip (if exists) before zipping.              |
