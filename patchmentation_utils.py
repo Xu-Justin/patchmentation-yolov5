@@ -291,7 +291,7 @@ def test(data: str, weights:str, batch_size: int, project: str, name: str):
         unlink_dataset(yaml_dict['path'], yaml_dict['test'], check=True)
         link_dataset(yaml_dict['path'], yaml_dict['test'], 0)
 
-    command = f'python3 val.py --data {data} --weights {weights} --batch-size {batch_size} --verbose --task test --project {project} --name {name + "/test"}'
+    command = f'python3 val.py --data {data} --weights {weights} --batch-size {batch_size} --verbose --task test --project {project} --name {name + "/test"} --iou-thres 0.2'
     os.system(command)
 
     if val_format is not None and val_format in (SINGLE_BATCH, MULTI_BATCH):
